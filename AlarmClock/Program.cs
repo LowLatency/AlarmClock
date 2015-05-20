@@ -18,30 +18,45 @@ namespace AlarmClock
 
             //User input
             Console.WriteLine("Alarm Clock v1.0");
-            Console.WriteLine("Alarm 1");
+            Console.WriteLine("\nAlarm 1\n");
 
             //Hour input
             Console.Write("Hour: ");
-            double hr = double.Parse(Console.ReadLine());
+            int hr = int.Parse(Console.ReadLine());
             Console.WriteLine("You have entered: {0}", hr);
 
             //Minute input
             Console.Write("Minute: ");
-            double min = double.Parse(Console.ReadLine());
+            int min = int.Parse(Console.ReadLine());
             Console.WriteLine("You have entered: {0}", min);
 
+            TimeSpan Alarm1 = new TimeSpan(hr, min, 0);
+
+            Console.WriteLine("\nAlarm1:\t{0:c}", Alarm1);
+
+            Console.WriteLine("\n\nProcessing...");
             Thread.Sleep(new TimeSpan(0, 0, 3));
             Console.Clear();
-
 
             //Time testing
             do
             {
                 while (! Console.KeyAvailable)
                 {
-                    string Text = DateTime.Now.ToString();
-                    Console.WriteLine(startTime);
-                    Console.WriteLine(Text);
+                    Console.WriteLine("Start:\t\t{0}", startTime);
+
+                    //Console.WriteLine(startTime);
+
+                    Console.WriteLine("Current:\t{0}", DateTime.Now.ToString());
+
+                    if( DateTime.Now.TimeOfDay >= Alarm1)
+                    {
+                        Console.WriteLine("Alarm1!\n");
+                        Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1));
+                    }
+
+
+
                     Console.WriteLine("\n\nPress ESC to exit");
 
                     Thread.Sleep(interval);
