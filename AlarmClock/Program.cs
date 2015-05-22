@@ -30,6 +30,18 @@ namespace AlarmClock
             int min = int.Parse(Console.ReadLine());
             Console.WriteLine("You have entered: {0}", min);
 
+            //AM or PM
+            Console.WriteLine("PM? [Y/n]: ");
+
+            hr += 12;
+
+            if (Console.ReadLine().ToUpper().Equals("N") || Console.ReadLine().ToUpper().Equals("n"))
+            {
+                hr -= 12;
+            }
+
+            
+            
             TimeSpan Alarm1 = new TimeSpan(hr, min, 0);
 
             Console.WriteLine("\nAlarm1:\t{0:c}", Alarm1);
@@ -51,8 +63,10 @@ namespace AlarmClock
 
                     if( DateTime.Now.TimeOfDay >= Alarm1)
                     {
-                        Console.WriteLine("Alarm1!\n");
-                        Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1));
+                        Console.WriteLine("\nAlarm1!\n");
+
+
+                        Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
                     }
 
 
