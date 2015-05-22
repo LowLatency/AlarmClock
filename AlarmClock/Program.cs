@@ -11,10 +11,9 @@ namespace AlarmClock
     {
         static void Main(string[] args)
         {
-
             var startTime = DateTime.Now;
 
-            TimeSpan interval = new TimeSpan(0, 0, 1);
+            TimeSpan interval = new TimeSpan(0, 0, 0, 1);
 
             //User input
             Console.WriteLine("Alarm Clock v1.0");
@@ -35,7 +34,7 @@ namespace AlarmClock
 
             hr += 12;
 
-            if (Console.ReadLine().ToUpper().Equals("N") || Console.ReadLine().ToUpper().Equals("n"))
+            if (Console.ReadLine().ToUpper().Equals("N"))
             {
                 hr -= 12;
             }
@@ -47,7 +46,7 @@ namespace AlarmClock
             Console.WriteLine("\nAlarm1:\t{0:c}", Alarm1);
 
             Console.WriteLine("\n\nProcessing...");
-            Thread.Sleep(new TimeSpan(0, 0, 3));
+            Thread.Sleep(new TimeSpan(0, 0, 0, 3));
             Console.Clear();
 
             //Time testing
