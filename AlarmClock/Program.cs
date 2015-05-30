@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace AlarmClock
 {
-    class StartTime
+    class Program
     {
+        private static readonly TimeSpan SleepTime = TimeSpan.FromSeconds(1);
+
         static void Main(string[] args)
         {
             var startTime = DateTime.Now;
 
-            TimeSpan interval = new TimeSpan(0, 0, 0, 1);
-
             //User input
-            Console.WriteLine("Alarm Clock v1.0");
+            Console.WriteLine("Alarm Clock v1.1");
             Console.WriteLine("\nAlarm 1\n");
 
             //Hour input
@@ -30,55 +30,51 @@ namespace AlarmClock
             Console.WriteLine("You have entered: {0}", min);
 
             //AM or PM
-            Console.WriteLine("PM? [Y/n]: ");
+            Console.WriteLine("PM? [y/N]: ");
 
-            hr += 12;
-
-            if (Console.ReadLine().ToUpper().Equals("N"))
+            if (Console.ReadLine().Equals("y", StringComparison.OrdinalIgnoreCase))
             {
-                hr -= 12;
+                hr += 12;
             }
 
-            
-            
-            TimeSpan Alarm1 = new TimeSpan(hr, min, 0);
+            var Alarm1 = new TimeSpan(hr, min, 0);
 
             Console.WriteLine("\nAlarm1:\t{0:c}", Alarm1);
 
-            Console.WriteLine("\n\nProcessing...");
-            Thread.Sleep(new TimeSpan(0, 0, 0, 3));
+            //Two second sleep time for viewing of alarm input
+            Thread.Sleep(SleepTime);
+            Thread.Sleep(SleepTime);
             Console.Clear();
 
             //Time testing
             do
             {
-                while (! Console.KeyAvailable)
+
+                Console.WriteLine("Start:\t\t{0}", startTime);
+
+                //Console.WriteLine(startTime);
+
+                Console.WriteLine("Current:\t{0}", DateTime.Now.ToString());
+
+                if (DateTime.Now.TimeOfDay >= Alarm1)
                 {
-                    Console.WriteLine("Start:\t\t{0}", startTime);
+                    Console.WriteLine("\nAlarm1!\n");
 
-                    //Console.WriteLine(startTime);
-
-                    Console.WriteLine("Current:\t{0}", DateTime.Now.ToString());
-
-                    if( DateTime.Now.TimeOfDay >= Alarm1)
-                    {
-                        Console.WriteLine("\nAlarm1!\n");
-
-
-                        Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
-                    }
-
-
-
-                    Console.WriteLine("\n\nPress ESC to exit");
-
-                    Thread.Sleep(interval);
-                    Console.Clear();
+                    Console.WriteLine(@"Time elapsed from alarm: {0:H\:mm\:ss}", DateTime.Now.Subtract(Alarm1));
+                    //Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
                 }
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
 
+                Console.WriteLine("\n\nPress ESC to exit");
 
+                Thread.Sleep(SleepTime);
+                Console.Clear();
 
+            } while (!ExitRequested());
+        }
+
+        private static bool ExitRequested()
+        {
+            return Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape;
         }
     }
 }
