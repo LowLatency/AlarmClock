@@ -17,29 +17,12 @@ namespace AlarmClock
 
             //User input
             Console.WriteLine("Alarm Clock v1.1");
-            Console.WriteLine("\nAlarm 1\n");
 
-            //Hour input
-            Console.Write("Hour: ");
-            int hr = int.Parse(Console.ReadLine());
-            Console.WriteLine("You have entered: {0}", hr);
+            //Multiple alarm setup
+            Console.WriteLine("How many alarms would you like to set?");
+            Console.WriteLine("Number of alarms: ");
+            int NumOfAlarms = int.Parse(Console.ReadLine());
 
-            //Minute input
-            Console.Write("Minute: ");
-            int min = int.Parse(Console.ReadLine());
-            Console.WriteLine("You have entered: {0}", min);
-
-            //AM or PM
-            Console.WriteLine("PM? [y/N]: ");
-
-            if (Console.ReadLine().Equals("y", StringComparison.OrdinalIgnoreCase))
-            {
-                hr += 12;
-            }
-
-            var Alarm1 = new TimeSpan(hr, min, 0);
-
-            Console.WriteLine("\nAlarm1:\t{0:c}", Alarm1);
 
             //Two second sleep time for viewing of alarm input
             Thread.Sleep(SleepTime);
@@ -75,6 +58,35 @@ namespace AlarmClock
         private static bool ExitRequested()
         {
             return Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape;
+        }
+
+        private static TimeSpan AlarmInput()
+        {
+            Console.WriteLine("\nAlarm 1\n");
+
+            //Hour input
+            Console.Write("Hour: ");
+            int hr = int.Parse(Console.ReadLine());
+            Console.WriteLine("You have entered: {0}", hr);
+
+            //Minute input
+            Console.Write("Minute: ");
+            int min = int.Parse(Console.ReadLine());
+            Console.WriteLine("You have entered: {0}", min);
+
+            //AM or PM
+            Console.WriteLine("PM? [y/N]: ");
+
+            if (Console.ReadLine().Equals("y", StringComparison.OrdinalIgnoreCase))
+            {
+                hr += 12;
+            }
+
+            var AlarmOut = new TimeSpan(hr, min, 0);
+
+            Console.WriteLine("\nAlarm Input:\t{0:c}", AlarmOut);
+
+            return AlarmOut;
         }
     }
 }
