@@ -14,14 +14,34 @@ namespace AlarmClock
         static void Main(string[] args)
         {
             var startTime = DateTime.Now;
+            List<TimeSpan> AlarmsFromUser = new List<TimeSpan>();
+
 
             //User input
-            Console.WriteLine("Alarm Clock v1.1");
+            Console.WriteLine("Alarm Clock v1.1\n");
 
             //Multiple alarm setup
-            Console.WriteLine("How many alarms would you like to set?");
-            Console.WriteLine("Number of alarms: ");
+            Console.WriteLine("How many alarms would you like to set?\n");
             int NumOfAlarms = int.Parse(Console.ReadLine());
+
+            Thread.Sleep(SleepTime);
+            Console.Clear();
+
+            for (int i = 0; i < NumOfAlarms; i++)
+            {
+                Console.WriteLine("Alarm #{0}", i+1);
+                AlarmsFromUser.Add(AlarmInput());
+            }
+
+
+            Console.WriteLine("Times Inputted:");
+            int count = 0;
+            foreach (TimeSpan element in AlarmsFromUser)
+            {
+                count += 1;
+                Console.WriteLine("\nAlarm Input {0}:\t{1}", count, element.ToString("hh:mm tt"));
+
+            }
 
 
             //Two second sleep time for viewing of alarm input
@@ -39,6 +59,7 @@ namespace AlarmClock
 
                 Console.WriteLine("Current:\t{0}", DateTime.Now.ToString());
 
+                /*
                 if (DateTime.Now.TimeOfDay >= Alarm1)
                 {
                     Console.WriteLine("\nAlarm1!\n");
@@ -46,6 +67,8 @@ namespace AlarmClock
                     Console.WriteLine(@"Time elapsed from alarm: {0:H\:mm\:ss}", DateTime.Now.Subtract(Alarm1));
                     //Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
                 }
+                */
+                
 
                 Console.WriteLine("\n\nPress ESC to exit");
 
@@ -62,15 +85,15 @@ namespace AlarmClock
 
         private static TimeSpan AlarmInput()
         {
-            Console.WriteLine("\nAlarm 1\n");
+            //Console.WriteLine("\nAlarm Input\n");
 
             //Hour input
-            Console.Write("Hour: ");
+            Console.Write("\nHour: ");
             int hr = int.Parse(Console.ReadLine());
             Console.WriteLine("You have entered: {0}", hr);
 
             //Minute input
-            Console.Write("Minute: ");
+            Console.Write("\nMinute: ");
             int min = int.Parse(Console.ReadLine());
             Console.WriteLine("You have entered: {0}", min);
 
@@ -85,6 +108,9 @@ namespace AlarmClock
             var AlarmOut = new TimeSpan(hr, min, 0);
 
             Console.WriteLine("\nAlarm Input:\t{0:c}", AlarmOut);
+            Thread.Sleep(SleepTime);
+            Thread.Sleep(SleepTime);
+            Console.Clear();
 
             return AlarmOut;
         }
