@@ -18,7 +18,7 @@ namespace AlarmClock
 
 
             //User input
-            Console.WriteLine("Alarm Clock v1.1\n");
+            Console.WriteLine("Alarm Clock v1.2\n");
 
             //Multiple alarm setup
             Console.WriteLine("How many alarms would you like to set?\n");
@@ -35,11 +35,12 @@ namespace AlarmClock
 
 
             Console.WriteLine("Times Inputted:");
+
             int count = 0;
             foreach (TimeSpan element in AlarmsFromUser)
             {
                 count += 1;
-                Console.WriteLine("\nAlarm Input {0}:\t{1}", count, element.ToString("hh:mm tt"));
+                Console.WriteLine("\nAlarm Input {0}:\t{1}", count, element);
 
             }
 
@@ -59,6 +60,23 @@ namespace AlarmClock
 
                 Console.WriteLine("Current:\t{0}", DateTime.Now.ToString());
 
+                count = 0;
+                
+                foreach (TimeSpan element in AlarmsFromUser)
+                {
+                    count += 1;
+                    if (DateTime.Now.TimeOfDay >= element)
+                    {
+                        Console.WriteLine("\nAlarm {0}!", count);
+
+                        Console.WriteLine(@"Time elapsed from alarm: {0:H\:mm\:ss}", DateTime.Now.Subtract(element));
+                        //Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
+                    }
+
+                }
+                
+
+                // Was used for single alarm from v1.1
                 /*
                 if (DateTime.Now.TimeOfDay >= Alarm1)
                 {
@@ -68,7 +86,7 @@ namespace AlarmClock
                     //Console.WriteLine("Time elapsed from alarm: {0}", DateTime.Now.Subtract(Alarm1).ToString("H:mm:ss"));
                 }
                 */
-                
+
 
                 Console.WriteLine("\n\nPress ESC to exit");
 
